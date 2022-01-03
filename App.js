@@ -1,11 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import Componenta from './components/componenta';
+import Componentb from './components/componentb';
+import Componentc from './components/componentc';
 
 export default function App() {
+  const [selected, setSelected] = useState();
+
+  function setTab(tab){
+    setSelected(tab);
+  }
+  function selectTab(){
+    switch(selected){
+      case 'A': return <Componenta/>
+      case 'B': return <Componentb/>
+      case 'C': return <Componentc/>
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      
+      <Text>Főoldal</Text>
+
+      <View style={styles.component}>
+        {selectTab()}
+      </View>
+      <View style={styles.buttons} >
+        <Button title='A' onPress={ () => setTab('A')}/>
+        <Button title='B' onPress={ () => setTab('B')}/>
+        <Button title='C' onPress={ () => setTab('C')}/>
+      </View>
+
     </View>
   );
 }
@@ -17,4 +44,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttons: {
+    flexDirection: 'row'
+  },
+  component: {
+    flex: 1,
+  }
 });
